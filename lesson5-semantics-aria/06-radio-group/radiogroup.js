@@ -22,7 +22,7 @@
 
     this.el.addEventListener('keydown', this.handleKeyDown.bind(this));
     this.el.addEventListener('click', this.handleClick.bind(this));
-
+    this.el.addEventListener('keydown', this.changeFocus.bind(this));
     // Any more initialization to do here?
 
     var firstButton = true;
@@ -33,7 +33,7 @@
       } else {
         button.tabIndex = "-1";
       }
-
+      
       // What about here?
     }
 
@@ -98,7 +98,8 @@
     this.focusedButton.tabIndex = 0;
     this.focusedButton.focus();
     this.focusedButton.setAttribute('checked', '');
-
+    this.focusedButton.setAttribute('aria-checked', 'true');
+    this.focusedButton.setAttribute('role', 'radio');
     // ... we probably want to do some stuff here, too ...
 
   };
