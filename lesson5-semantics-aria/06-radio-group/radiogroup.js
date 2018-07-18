@@ -22,8 +22,9 @@
 
     this.el.addEventListener('keydown', this.handleKeyDown.bind(this));
     this.el.addEventListener('click', this.handleClick.bind(this));
-    this.el.addEventListener('keydown', this.changeFocus.bind(this));
-    // Any more initialization to do here?
+   
+    this.el.setAttribute('role', 'radiogroup');//it is a container(parent) called radiogroup for each following radio button
+   
 
     var firstButton = true;
     for (var button of this.buttons) {
@@ -33,8 +34,7 @@
       } else {
         button.tabIndex = "-1";
       }
-      
-      // What about here?
+      button.setAttribute('role','radio')   // add role for each botton
     }
 
   }
@@ -91,7 +91,8 @@
   RadioGroup.prototype.changeFocus = function() {
     // Set the old button to tabindex -1
     this.focusedButton.tabIndex = -1;
-    this.focusedButton.removeAttribute('checked');
+    this.focusedButton.removeAttribute('checked');//when the tabindex = -1 .we need to make aria-checked attribute in sync wiht the checked value line 93 94 n 95 are linked
+    this.focusedButton.setAttribute('false');
 
     // Set the new button to tabindex 0 and focus it
     this.focusedButton = this.buttons[this.focusedIdx];
@@ -99,9 +100,6 @@
     this.focusedButton.focus();
     this.focusedButton.setAttribute('checked', '');
     this.focusedButton.setAttribute('aria-checked', 'true');
-    this.focusedButton.setAttribute('role', 'radio');
-    // ... we probably want to do some stuff here, too ...
-
   };
 
   var group1 = new RadioGroup('#group1');
